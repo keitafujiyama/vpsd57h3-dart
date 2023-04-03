@@ -36,18 +36,15 @@ class DatabaseProvider with ChangeNotifier {
 
     for (final message in history.messages) {
       _addResult (ResultClass.fromMap (message.content as Map <String, dynamic>));
+
+      notifyListeners ();
     }
 
     print ('CONNECTED');
 
-    _printInformation ();
-
-    notifyListeners ();
 
     _server.subscribe (channels: {_channel}).messages.listen ((Envelope envelope) {
       _addResult (ResultClass.fromMap (envelope.content as Map <String, dynamic>));
-
-      _printInformation ();
 
       notifyListeners ();
     });
@@ -59,22 +56,16 @@ class DatabaseProvider with ChangeNotifier {
     }
   }
 
-  void _addResult (ResultClass result) => results
-    ..add (result)
-    ..sort ((ResultClass a, ResultClass b) => a.date.compareTo (b.date));
+  void _addResult (ResultClass result) {
+    results
+      ..add (result)
+      ..sort ((ResultClass a, ResultClass b) => a.date.compareTo (b.date));
 
-  void _printInformation () {
-    final list = <int> [];
-
-    for (var i = 0; i < (results.length > 20 ? 20 : results.length); i ++) {
-      list.add (results [results.length - i - 1].score);
-    }
-
-    print ('${results.length} ppl [${list.reversed.join ('.')}]');
+    notifyListeners ();
   }
 
   // PROPERTY
-  final String _channel = 'aaa';
+  final String _channel = 'vpsd57h3';
   List <ResultClass> results = [];
   PubNub _server = PubNub ();
   String _id = '';

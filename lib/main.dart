@@ -32,11 +32,11 @@ class MyApp extends StatelessWidget {
       create: (_) => DatabaseProvider ()..connectServer (),
       child: MaterialApp (
         initialRoute: '/',
-        title: 'Polluted: Existence',
+        title: 'Pollute Beauty',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/landscape':
-              return PageRouteBuilder <void> (pageBuilder: (_, __, ___) => const LandScapePage ());
+              return PageRouteBuilder <void> (pageBuilder: (_, __, ___) =>  LandscapePage ());
 
             case '/portrait':
               return PageRouteBuilder <void> (pageBuilder: (_, __, ___) => PortraitPage (settings.arguments as int));

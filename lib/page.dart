@@ -17,26 +17,36 @@ import 'widget.dart';
 
 
 // PAGE
-class LandScapePage extends StatelessWidget {
+class LandscapePage extends StatelessWidget {
 
   // CONSTRUCTOR
-  const LandScapePage ({super.key});
+  const LandscapePage ({super.key});
 
   // METHOD
-  List <ResultClass> _createList (List <ResultClass> results) {
-    const max = 20;
+  List <ResultClass> _createList (List <ResultClass> results1) {
+    const max = 30;
 
-    if (results.length > max) {
-      final list = <ResultClass> [];
+    final scores = <int> [];
 
+    var results2 = <ResultClass> [];
+
+    if (results1.length > max) {
       for (var i = 0; i < max; i ++) {
-        list.add (results [results.length - i - 1]);
+        results2.add (results1 [results1.length - i - 1]);
       }
 
-      return list..reversed;
+      results2.sort ((ResultClass a, ResultClass b) => a.date.compareTo (b.date));
     } else {
-      return results;
+      results2 = results1;
     }
+
+    for (final result in results2) {
+      scores.add (result.score);
+    }
+
+    print ('[${scores.join ('.')}]');
+
+    return results2;
   }
 
 
@@ -336,7 +346,7 @@ class _SplashPageState extends State <SplashPage> {
   Widget build (_) => Scaffold (
     backgroundColor: TreeClass.colors [_index],
     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    body: const Center (child: Text ('Polluted: One Week',
+    body: const Center (child: Text ('Pollute Beauty',
       textAlign: TextAlign.center,
       textScaleFactor: 3,
       style: TextStyle (

@@ -16,7 +16,6 @@ class TreePainter extends CustomPainter {
   // METHOD
   void drawTree (Canvas canvas, double angle, double length, int width, PointClass start) {
     if (width > 0) {
-
       final end = PointClass (length * math.cos (angle) + start.x, length * math.sin (angle) + start.y);
 
       final paint = Paint ()
@@ -31,7 +30,7 @@ class TreePainter extends CustomPainter {
 
       canvas.drawPath (path, paint);
 
-      const pi = math.pi * 0.4;
+      const pi = math.pi * 0.425;
 
       for (var i = 0; i < (math.Random ().nextBool () ? 3 : 2); i ++) {
         drawTree (canvas, angle + math.Random ().nextDouble () * pi - pi * 0.5, length * (math.Random ().nextDouble () * 0.5 + 0.5), width - 1, end);
@@ -50,5 +49,5 @@ class TreePainter extends CustomPainter {
   void paint (Canvas canvas, Size size) => drawTree (canvas, -math.pi / 2, size.height / 3, 10, PointClass (size.width / 2, size.height));
 
   @override
-  bool shouldRepaint (CustomPainter oldDelegate) => false;
+  bool shouldRepaint (CustomPainter oldDelegate) => true;
 }
